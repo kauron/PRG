@@ -3,7 +3,7 @@ package Topic5;
 import java.io.File;
 import java.util.Scanner;
 
-public class Divide {
+public class Separa {
     /**
      * Scans a file that contains integer numbers and separates them into two columns,
      * respecting the order and using StackIntLinked objects.
