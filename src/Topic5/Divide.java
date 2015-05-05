@@ -7,15 +7,18 @@ public class Divide {
     /**
      * Scans a file that contains integer numbers and separates them into two columns,
      * respecting the order and using StackIntLinked objects.
-     * @param args Not used
+     * @param args String[] Parameters of the call (-input filename)
      * @throws StackUnderflowException It is never thrown because the if statements check if the Stack is empty or not.
      */
     public static void main (String[] args) throws StackUnderflowException {
-        //Scanner to get the numbers from the file
+        //Scanner to get the numbers from the file inputed as a parameter
         Scanner input = null;
-
+        if (args.length < 2 || !args[0].equals("-input")) {
+            System.out.println("Usage: java Divide -input fileName");
+            System.exit(1);
+        }
         try {
-            input = new Scanner (new File ("datos.in"));
+            input = new Scanner (new File (args[1]));
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
