@@ -8,7 +8,7 @@ public class Divide {
      * Scans a file that contains integer numbers and separates them into two columns,
      * respecting the order and using StackIntLinked objects.
      * @param args Not used
-     * @throws StackUnderflowException It never throws it because the if statements check if the Stack is empty or not.
+     * @throws StackUnderflowException It is never thrown because the if statements check if the Stack is empty or not.
      */
     public static void main (String[] args) throws StackUnderflowException {
         //Scanner to get the numbers from the file
@@ -20,11 +20,12 @@ public class Divide {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
+        //Get all the inputs in a single Stack
         StackIntLinked ints = new StackIntLinked();
         while (input.hasNextInt())
             ints.push(input.nextInt());
 
+        //Divide the ints in positive or negative
         StackIntLinked positives = new StackIntLinked();
         StackIntLinked negatives = new StackIntLinked();
 
@@ -34,6 +35,7 @@ public class Divide {
             else       positives.push(i);
         }
 
+        //Print the stacks
         while ( !positives.isEmpty() || !negatives.isEmpty() ) {
             if ( !positives.isEmpty() && !negatives.isEmpty() )
                 System.out.printf("%5d%5d\n", negatives.pop(), positives.pop());
