@@ -33,8 +33,5 @@ public class StackIntLinked {
     }
 
     public int size () {return size;}
-
     public boolean isEmpty() {return top == null;}
-
-
 }
