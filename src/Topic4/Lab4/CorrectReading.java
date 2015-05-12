@@ -1,4 +1,4 @@
-package Topic3.Lab4;
+package Topic4.Lab4;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;

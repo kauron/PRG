@@ -1,4 +1,4 @@
-package Topic3.Lab4;
+package Topic4.Lab4;
 
 /**
  * One exception of this class will be thrown when there is
