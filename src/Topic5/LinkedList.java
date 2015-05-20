@@ -26,25 +26,17 @@ public class LinkedList {
     }
 
     public void next() throws IndexOutOfBoundsException {
-        if (!hasNext()) throw new IndexOutOfBoundsException("You have reached the end");
+        if (!isValid()) throw new IndexOutOfBoundsException("You have reached the end");
         else cursor = cursor.getNext();
     }
 
     public void previous() throws IndexOutOfBoundsException {
-        if (!hasPrevious()) throw new IndexOutOfBoundsException("You have reached the beginning");
+        if (!isValid()) throw new IndexOutOfBoundsException("You have reached the beginning");
         else cursor = cursor.getPrevious();
     }
 
     public boolean isValid() {
         return cursor != null;
-    }
-
-    public boolean hasNext() {
-        return isValid() && cursor.getNext() != null;
-    }
-
-    public boolean hasPrevious() {
-        return isValid() && cursor.getPrevious() != null;
     }
 
     public int get() throws NoSuchElementException {
@@ -60,22 +52,20 @@ public class LinkedList {
     public void insert (int value) throws NoSuchElementException {
         if ( isEmpty() ) {
             //insert when no elements are present
-            NodeInt aux = new NodeInt(last, value, first);
-            first = last = cursor = aux;
+            first = last = cursor = new NodeInt(value);
         } else if ( !isValid() ) {
             //insert when the cursor is not valid, the elements goes at the end
             NodeInt aux = new NodeInt(last, value);
-            cursor.setNext(aux);
+            last.setNext(aux);
             last = cursor = aux;
         } else if ( cursor == first ) {
             //if we are at the first position insert is as first
-            NodeInt aux = new NodeInt (value, cursor);
+            NodeInt aux = new NodeInt(value, first);
+            first.setPrevious(aux);
             first = cursor = aux;
-            cursor.setPrevious(aux);
         } else {
             //else insert the element before the current one
-            NodeInt aux = new NodeInt (value, cursor);
-            aux.setPrevious(cursor.getPrevious());
+            NodeInt aux = new NodeInt(cursor.getPrevious(), value, cursor);
             cursor.getPrevious().setNext(aux);
             cursor.setPrevious(aux);
         }
@@ -92,35 +82,50 @@ public class LinkedList {
         insert(value);
     }
 
-    public void remove() {
-        if ( isEmpty() || !isValid() ) throw new NoSuchElementException("You are in an invalid position!");
+    public void remove(int value) throws NoSuchElementException {
+        cursor = search(value);
+        if (isValid())
+            remove();
+        else
+            throw new NoSuchElementException("The element " + value + " doesn't exist");
+    }
 
-        if ( !hasPrevious() && !hasNext() ) {
+    public void remove() throws NoSuchElementException {
+        if (isEmpty()) throw new NoSuchElementException("The list is empty!");
+        if (!isValid()) throw new NoSuchElementException("You are in an invalid position!");
+
+        if (size == 1) {
             cursor = first = last = null;
-        } else if ( !hasPrevious() ) {
-            cursor = cursor.getNext();
+        } else if (cursor == first) {
+            first = cursor = cursor.getNext();
             cursor.setPrevious(null);
-            first = cursor;
-        } else if ( !hasNext() ) {
-            cursor = cursor.getPrevious();
+        } else if (cursor == last) {
+            last = cursor = cursor.getPrevious();
             cursor.setNext(null);
-            last = cursor;
         } else {
             cursor.getPrevious().setNext(cursor.getNext());
             cursor.getNext().setPrevious(cursor.getPrevious());
-            cursor = cursor.getNext();
+            next();
         }
         size--;
     }
 
-    public void removeBeginning() {
-        if (!isEmpty()) begin();
+    public void removeBeginning() throws IndexOutOfBoundsException {
+        begin();
         remove();
     }
 
-    public void removeEnd() {
-        if (!isEmpty()) end();
+    public void removeEnd() throws IndexOutOfBoundsException {
+        end();
         remove();
+    }
+
+    public void insertInOrder(int value) {
+        if (!isEmpty()) {
+            begin();
+            while (isValid() && cursor.getValue() < value) next();
+        }
+        insert(value);
     }
 
     public NodeInt search (int value) {

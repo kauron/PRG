@@ -1,9 +1,9 @@
 package Topic5;
 
-public class ListIntLinked {
+public class ListIntLinkedOld {
     private NodeInt first;
 
-    public ListIntLinked() {
+    public ListIntLinkedOld() {
         first = null;
     }
 
