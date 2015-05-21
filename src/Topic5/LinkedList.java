@@ -179,13 +179,13 @@ public class LinkedList {
             if (current.getValue() < current.getPrevious().getValue()) {
                 cursor = current;
                 remove();
-                cursor = cursor.getPrevious();
                 while (cursor != first && current.getValue() < cursor.getPrevious().getValue())
                     cursor = cursor.getPrevious();
                 insert(current);
             }
-
+            System.out.println(this);
             current = nextNode;
         }
+        System.out.println();
     }
 }
