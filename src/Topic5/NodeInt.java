@@ -15,11 +15,31 @@ public class NodeInt {
     }
 
     public NodeInt getNext() {return next;}
-    public NodeInt getPrevious() {return previous;}
+
     public void setNext(NodeInt node) {next = node;}
+
+    public NodeInt getPrevious() {
+        return previous;
+    }
+
     public void setPrevious(NodeInt node) {
         previous = node;}
 
     public int getValue() {return value;}
     public void setValue(int value) {this.value = value;}
+
+    public void clearLinks() {
+        this.next = null;
+        this.previous = null;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s - %d - %s",
+                this.previous == null ? "null" : this.previous.getValue(),
+                this.value,
+                this.next == null ? "null" : this.next.getValue()
+        );
+    }
 }
