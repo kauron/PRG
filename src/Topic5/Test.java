@@ -7,14 +7,29 @@ public class Test {
     private static boolean errors;
 
     public static void main(String[] args) throws Exception {
-        while (!errors) {
-            init((int) 1e3, (int) 1e6, 1000);
+        int errorCount = 0;
+        int totalElements = 0;
+        int REPETITIONS = 1000;
+        long begin = System.nanoTime();
+        for (int i = 0; i < REPETITIONS; i++) {
+            init(1000, Integer.MAX_VALUE);
+            totalElements += lil.size();
             show(false, false);
             lil.mergeSort();
 //        lil.insertionSort();
             show(false, true);
-            System.out.println(!errors);
+            if (errors) {
+                System.out.printf("%3d-. Execution #%d\n\n", ++errorCount, i);
+                show(true, true);
+            }
         }
+        long end = System.nanoTime();
+        System.out.printf("\nTotal success ratio: %2.2f%%\n%d executions, %d errors\n" +
+                        "%d total elements, %.2f average\nTime elapsed: %.2fs\nTime per list: %.6fus\n",
+                100 - errorCount * 100.0 / REPETITIONS,
+                REPETITIONS, errorCount,
+                totalElements, totalElements / (double) REPETITIONS,
+                (end - begin) / 1e9, (end - begin) / (1e3 * REPETITIONS));
     }
 
     public static void show(boolean print, boolean check) {
