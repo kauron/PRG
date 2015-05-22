@@ -12,6 +12,50 @@ public class LinkedList {
         first = last = cursor = null;
     }
 
+    private static NodeInt mergeSort(NodeInt begin, int s) {
+        if (s < 2) {
+            return begin;
+        }
+        NodeInt half = begin;
+        for (int i = 0; i < s / 2; i++) {
+            half = half.getNext();
+        }
+        half.getPrevious().setNext(null);
+        half.setPrevious(null);
+        return naturalMerge(mergeSort(begin, s / 2), mergeSort(half, s - s / 2));
+    }
+
+    /**
+     * Merges two lists given their first elements (liked to the rest)
+     */
+    private static NodeInt naturalMerge(NodeInt h1, NodeInt h2) {
+        NodeInt head = h1;
+        while (h1.getNext() != null && h2 != null) {
+            if (h1.getValue() < h2.getValue()) {
+                h1 = h1.getNext();
+            } else {
+                if (h1 == head) head = h2;
+                NodeInt aux = h2;
+                h2 = h2.getNext();
+                h1.linkBefore(aux);
+            }
+        }
+
+        while (h2 != null) {
+            NodeInt aux = h2;
+            h2 = h2.getNext();
+            if (h1.getValue() < aux.getValue()) {
+                h1.linkAfter(aux);
+                h1 = aux;
+            } else {
+                if (head == h1) head = aux;
+                h1.linkBefore(aux);
+            }
+        }
+
+        return head;
+    }
+
     public int size() {
         return size;
     }
@@ -92,6 +136,11 @@ public class LinkedList {
     public void addEnd(int value) {
         cursor = null;
         insert(value);
+    }
+
+    public void addEnd(NodeInt node) {
+        cursor = null;
+        insert(node);
     }
 
     public void remove(int value) throws NoSuchElementException {
@@ -187,5 +236,15 @@ public class LinkedList {
             current = nextNode;
         }
         System.out.println();
+    }
+
+    public void mergeSort() {
+        if (size < 2) return;
+        begin();
+        cursor = first = mergeSort(cursor, size);
+        NodeInt aux = first;
+        while (aux.getNext() != null) aux = aux.getNext();
+        last = aux;
+
     }
 }

@@ -42,4 +42,33 @@ public class NodeInt {
                 this.next == null ? "null" : this.next.getValue()
         );
     }
+
+    public void linkBefore(NodeInt node) {
+        node.clearLinks();
+
+        node.setNext(this); //link the node with this
+        if (previous != null) {
+            node.setPrevious(previous); //link the node with the previous
+            previous.setNext(node); //link the previous with the node
+        }
+        this.setPrevious(node); // link this with the node
+    }
+
+    public void linkAfter(NodeInt node) {
+        node.clearLinks();
+
+        node.setPrevious(this); //link the node with this
+        if (next != null) {
+            node.setNext(next); //link the node with the next
+            next.setPrevious(node); //link the next with the node
+        }
+        this.setNext(node); // link this with the node
+    }
+
+    public void breakPreviousLink() {
+        if (this.previous != null) {
+            previous.setPrevious(null);
+            this.previous = null;
+        }
+    }
 }

@@ -7,70 +7,65 @@ public class Test {
     private static boolean errors;
 
     public static void main(String[] args) throws Exception {
-        initializeLists(10, 20, 1000);
-        add(3000);
-        add(2000);
-//        massiveTestInsertionSort();
-        testInsertionSort(true);
-//        testSortedInsertion(true);
+        while (!errors) {
+            init((int) 1e3, (int) 1e6, 1000);
+            show(false, false);
+            lil.mergeSort();
+//        lil.insertionSort();
+            show(false, true);
+            System.out.println(!errors);
+        }
     }
 
-    public static void add(int value) {
-        lil.addEnd(value);
-        sil.insertInOrder(value);
-    }
-
-    public static void massiveTestInsertionSort() {
-        errors = false;
-//        long probe = System.currentTimeMillis();
-        while (!errors)
-            testInsertionSort(true);
-//        System.out.printf("Test finished in %dms %s errors\n%d nodes sorted in %d lists\n",
-//                System.currentTimeMillis() - probe, errors ? "with" : "without", 50 * 200, 50);
-    }
-
-    public static void testInsertionSort(boolean verbose) {
-        testSortedInsertion(verbose);
-
-        lil.insertionSort();
-
+    public static void show(boolean print, boolean check) {
         lil.begin();
         sil.begin();
         boolean match = true;
         while (sil.isValid()) {
-            boolean accept = sil.get() == lil.get();
-            match = match && accept;
-            if (verbose) System.out.printf(" %5d  %5d %5s \n", lil.get(), sil.get(), accept);
+            boolean accept = false;
+            if (check) {
+                accept = sil.get() == lil.get();
+                match = match && accept;
+            }
+            if (print) System.out.printf(" %5d  %5d ", lil.get(), sil.get());
+            if (print && check) System.out.print(accept);
+            if (print) System.out.println();
+
             lil.next();
             sil.next();
         }
-        if (verbose) System.out.println("\n" + match);
-        errors = errors || !match;
+        if (print && check) System.out.println("\n" + match);
+        if (check) errors = errors || !match;
+        if (print) System.out.println();
     }
 
-    public static void testSortedInsertion(boolean verbose) {
-        lil.begin();
-        sil.begin();
-        while (sil.isValid()) {
-            if (verbose) System.out.printf(" %5d  %5d \n", lil.get(), sil.get());
-            lil.next();
-            sil.next();
-        }
-        if (verbose) System.out.println("\n");
+    public static void addEnd(int[] values) {
+        for (int i : values) addEnd(i);
     }
 
-    public static void initializeLists(int min, int max, int maxValue) {
-        initializeLists(new Random().nextInt(max - min) + min, maxValue);
+    public static void addEnd(int value) {
+        lil.addEnd(value);
+        sil.insertInOrder(value);
     }
 
-    public static void initializeLists(int size, int maxValue) {
+    public static void init(int[] values) {
+        init(0, 0);
+        addEnd(values);
+    }
+
+    public static void init(int min, int max, int maxValue) {
+        init(new Random().nextInt(max - min) + min, maxValue);
+    }
+
+    public static void init(int size, int maxValue) {
         Random r = new Random();
+
+        errors = false;
 
         lil = new LinkedList();
         sil = new LinkedList();
 
-        int n = size;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < size; i++) {
             int value = r.nextInt(maxValue);
             lil.addEnd(value);
             sil.insertInOrder(value);
