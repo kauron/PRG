@@ -14,22 +14,22 @@ public class StackIntLinked {
         size++;
     }
 
-    public int pop () throws StackUnderflowException {
+    public int pop () throws Exception {
         if ( top != null ) {
             int lastTop = top.getValue();
             top = top.getNext();
             size--;
             return lastTop;
         } else {
-            throw new StackUnderflowException("There are no elements in this stack");
+            throw new Exception("There are no elements in this stack");
         }
     }
 
-    public int top () throws StackUnderflowException {
+    public int top () throws Exception {
         if ( top != null )
             return top.getValue();
         else
-            throw new StackUnderflowException("There are no elements in this stack");
+            throw new Exception("There are no elements in this stack");
     }
 
     public int size () {return size;}

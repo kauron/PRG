@@ -1,0 +1,39 @@
+
+set style data lines
+
+set ylabel "Microseconds"
+set xlabel "Input size"
+set xrange [0:20000]
+set yrange [-3500:400000]
+
+set grid
+set key left
+set term pdfcairo colour enhanced solid
+set output "ms.pdf"
+
+## insertion
+set output "is.pdf"
+plot "is.out" using 1:2 t "Best case", "" using 1:3 t "Worst case", "" using 1:4 t "Average case"
+
+## selectionsort
+set output "ss.pdf"
+plot "ss.out" using 1:2 t "Best case", "" using 1:3 t "Worst case", "" using 1:4 t "Average case"
+
+## mergesort
+set yrange [-500:4000]
+set output "ms.pdf"
+plot "ms.out" using 1:2 t "Best case", "" using 1:3 t "Worst case", "" using 1:4 t "Average case"
+
+
+set term x11
+set output
+
+pause -1 "pause"
+
+b(x) = a*x+b
+w(x) = c*x*x+d*x+e
+a(x) = f*x*x+g*x+h
+
+#fit b(x) "is.out" using 1:2 via a,b
+#fit w(x) "is.out" using 1:3 via c,d,e
+#fit a(x) "is.out" using 1:4 via f,g,h

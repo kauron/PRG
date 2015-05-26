@@ -1,17 +1,21 @@
 package Topic5;
 
+/**
+ * SplitStack
+ * Scans a
+ */
+
 import java.io.File;
 import java.util.Scanner;
 
-public class SeparaStack {
+public class SplitStack {
     /**
      * Scans a file that contains integer numbers and separates them into two columns,
      * respecting the order and using StackIntLinked objects.
      * @param args String[] Parameters of the call (-input filename)
-     * @throws StackUnderflowException It is never thrown because the if statements check if the Stack is empty or not.
      */
-    public static void main (String[] args) throws StackUnderflowException {
-        //Scanner to get the numbers from the file inputed as a parameter
+    public static void main (String[] args) {
+        //Scanner to get the numbers from the file parameter
         Scanner input = null;
         if (args.length < 2 || !args[0].equals("-input")) {
             System.out.println("Usage: java Divide -input fileName");
@@ -24,11 +28,13 @@ public class SeparaStack {
             System.exit(1);
         }
         //Get all the inputs in a single Stack
+        // inverts the output
         StackIntLinked ints = new StackIntLinked();
         while (input.hasNextInt())
             ints.push(input.nextInt());
 
         //Divide the ints in positive or negative
+        // inverts the output again so the output is proper
         StackIntLinked positives = new StackIntLinked();
         StackIntLinked negatives = new StackIntLinked();
 
