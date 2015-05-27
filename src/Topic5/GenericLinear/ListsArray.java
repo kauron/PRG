@@ -1,11 +1,12 @@
 package Topic5.GenericLinear;
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 /**
  * Created by baudlord on 5/13/15.
  */
 
-// TODO: research generic array creation
+@SuppressWarnings("unchecked")
 
 public class ListsArray<T> {
     static final String ERROR_EMPTYLIST = "List is currently empty!";
@@ -18,29 +19,27 @@ public class ListsArray<T> {
 
     // private final Constructor<? extends T> ctor;
 
-    public ListsArray() {
-        this(DEFAULT_SIZE);
-
+    public ListsArray(Class<T> c) {
+        this(c, DEFAULT_SIZE);
     }
 
-    public ListsArray(int initialLength) {
-        data = new T[initialLength]; //
+    public ListsArray(Class<T> c, int initialLength) {
+        data = (T[]) Array.newInstance(c, initialLength); //
         int size = 0;
         int current = -1;
     }
 
     public String toString() {
         // expected output:
-        // [size:current] {e1, e2, e3, ... , en}
+        // [size:current] {e1, e2, e3, ... , en}i
+        return "";
     }
 
     public ListsArray<T> clone() {
-        ListsArray<T> out = new ListsArray<T>(this.size());
-
+        ListsArray<T> out = new ListsArray(data[0].getClass(), data.length);
         System.arraycopy(this.data, 0, out.data, 0, this.data.length - 1);
         out.current = this.current;
         out.size = this.size;
-
         return out;
     }
 
@@ -137,7 +136,7 @@ public class ListsArray<T> {
     }
 
     public void resize() {
-        T[] aux = new T[data.length + DEFAULT_SIZE];
+        T[] aux = (T[]) Array.newInstance(data[0].getClass(), data.length+DEFAULT_SIZE);
         System.arraycopy(data, 0, aux, 0, data.length);
         data = aux;
     }
