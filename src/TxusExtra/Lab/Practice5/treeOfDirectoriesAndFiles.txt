@@ -1,0 +1,24 @@
+.
+├── classes
+│   ├── libPRG
+│   │   └── linear
+│   │       ├── LinkedQueueInt.class
+│   │       └── NodeInt.class
+│   └── pract5
+│       ├── concor.class
+│       ├── Concordance.class
+│       └── NodeCnc.class
+├── makefile
+├── src
+│   ├── libPRG
+│   │   └── linear
+│   │       ├── LinkedQueueInt.java
+│   │       └── NodeInt.java
+│   └── pract5
+│       ├── Concordance.java
+│       ├── concor.java
+│       └── NodeCnc.java
+├── testForPractice5.txt
+└── treeOfDirectoriesAndFiles.txt
+
+8 directories, 13 files

@@ -1,7 +1,7 @@
-package Topic5;
+package Topic5.GenericLinear;
 
 //circular buffer
-public class QueueIntArray {
+public class QueueArray {
     private static final String ERROR_NOELEMENTS = "There are no elements in the queue!";
     private static int DEFAULT_SIZE = 100;
 
@@ -9,11 +9,11 @@ public class QueueIntArray {
     //first is the first occupied position, last is the last position used + 1
     private int first, last;
 
-    public QueueIntArray() {
+    public QueueArray() {
         this(DEFAULT_SIZE);
     }
 
-    public QueueIntArray(int size) {
+    public QueueArray(int size) {
         this.first = 0;
         this.last = 0;
         this.queue = new int[size];

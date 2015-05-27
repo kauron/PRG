@@ -12,49 +12,6 @@ public class LinkedList {
         first = last = cursor = null;
     }
 
-    private static NodeInt mergeSort(NodeInt begin, int s) {
-        if (s < 2) {
-            return begin;
-        }
-        NodeInt half = begin;
-        for (int i = 0; i < s / 2; i++) {
-            half = half.getNext();
-        }
-        half.getPrevious().setNext(null);
-        half.setPrevious(null);
-        return naturalMerge(mergeSort(begin, s / 2), mergeSort(half, s - s / 2));
-    }
-
-    /**
-     * Merges two lists given their first elements (liked to the rest)
-     */
-    private static NodeInt naturalMerge(NodeInt h1, NodeInt h2) {
-        NodeInt head = h1;
-        while (h1.getNext() != null && h2 != null) {
-            if (h1.getValue() < h2.getValue()) {
-                h1 = h1.getNext();
-            } else {
-                if (h1 == head) head = h2;
-                NodeInt aux = h2;
-                h2 = h2.getNext();
-                h1.linkBefore(aux);
-            }
-        }
-
-        while (h2 != null) {
-            NodeInt aux = h2;
-            h2 = h2.getNext();
-            if (h1.getValue() < aux.getValue()) {
-                h1.linkAfter(aux);
-                h1 = aux;
-            } else {
-                if (head == h1) head = aux;
-                h1.linkBefore(aux);
-            }
-        }
-
-        return head;
-    }
 
     public int size() {
         return size;
@@ -65,22 +22,26 @@ public class LinkedList {
     }
 
     public void begin() throws IndexOutOfBoundsException {
-        if (isEmpty()) throw new IndexOutOfBoundsException("There are no elements");
+        if (isEmpty())
+            throw new IndexOutOfBoundsException("There are no elements");
         else cursor = first;
     }
 
     public void end() throws IndexOutOfBoundsException {
-        if (isEmpty()) throw new IndexOutOfBoundsException("There are no elements");
+        if (isEmpty())
+            throw new IndexOutOfBoundsException("There are no elements");
         else cursor = last;
     }
 
     public void next() throws IndexOutOfBoundsException {
-        if (!isValid()) throw new IndexOutOfBoundsException("You have reached the end");
+        if (!isValid())
+            throw new IndexOutOfBoundsException("You have reached the end");
         else cursor = cursor.getNext();
     }
 
     public void previous() throws IndexOutOfBoundsException {
-        if (!isValid()) throw new IndexOutOfBoundsException("You have reached the beginning");
+        if (!isValid())
+            throw new IndexOutOfBoundsException("You have reached the beginning");
         else cursor = cursor.getPrevious();
     }
 
@@ -89,12 +50,14 @@ public class LinkedList {
     }
 
     public int get() throws NoSuchElementException {
-        if (!isValid()) throw new NoSuchElementException("The current position is invalid!");
+        if (!isValid())
+            throw new NoSuchElementException("The current position is invalid!");
         else return cursor.getValue();
     }
 
     public void update(int value) throws NoSuchElementException {
-        if (!isValid()) throw new NoSuchElementException("The current position is invalid!");
+        if (!isValid())
+            throw new NoSuchElementException("The current position is invalid!");
         else cursor.setValue(value);
     }
 
@@ -153,7 +116,8 @@ public class LinkedList {
 
     public void remove() throws NoSuchElementException {
         if (isEmpty()) throw new NoSuchElementException("The list is empty!");
-        if (!isValid()) throw new NoSuchElementException("You are in an invalid position!");
+        if (!isValid())
+            throw new NoSuchElementException("You are in an invalid position!");
 
         if (size == 1) {
             cursor = first = last = null;
@@ -193,7 +157,7 @@ public class LinkedList {
         insert(node);
     }
 
-    public NodeInt search (int value) {
+    public NodeInt search(int value) {
         for (NodeInt temp = first; temp != null; temp = temp.getNext())
             if (temp.getValue() == value) return temp;
         return null;
@@ -203,7 +167,7 @@ public class LinkedList {
     public String toString() {
         String s = String.format("[%d:%s] { ", size, cursor == null ? "null" : cursor.getValue());
         for (NodeInt temp = first; temp != null; temp = temp.getNext())
-            s += String.format("%d%s ", temp.getValue(), temp.getNext() != null ? "," :"");
+            s += String.format("%d%s ", temp.getValue(), temp.getNext() != null ? "," : "");
         s += "}";
 
         return s;
@@ -246,5 +210,49 @@ public class LinkedList {
         while (aux.getNext() != null) aux = aux.getNext();
         last = aux;
 
+    }
+
+    private static NodeInt mergeSort(NodeInt begin, int s) {
+        if (s < 2) {
+            return begin;
+        }
+        NodeInt half = begin;
+        for (int i = 0; i < s / 2; i++) {
+            half = half.getNext();
+        }
+        half.getPrevious().setNext(null);
+        half.setPrevious(null);
+        return naturalMerge(mergeSort(begin, s / 2), mergeSort(half, s - s / 2));
+    }
+
+    /**
+     * Merges two lists given their first elements (liked to the rest)
+     */
+    private static NodeInt naturalMerge(NodeInt h1, NodeInt h2) {
+        NodeInt head = h1;
+        while (h1.getNext() != null && h2 != null) {
+            if (h1.getValue() < h2.getValue()) {
+                h1 = h1.getNext();
+            } else {
+                if (h1 == head) head = h2;
+                NodeInt aux = h2;
+                h2 = h2.getNext();
+                h1.linkBefore(aux);
+            }
+        }
+
+        while (h2 != null) {
+            NodeInt aux = h2;
+            h2 = h2.getNext();
+            if (h1.getValue() < aux.getValue()) {
+                h1.linkAfter(aux);
+                h1 = aux;
+            } else {
+                if (head == h1) head = aux;
+                h1.linkBefore(aux);
+            }
+        }
+
+        return head;
     }
 }

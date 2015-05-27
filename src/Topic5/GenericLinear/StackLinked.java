@@ -1,22 +1,22 @@
-package Topic5;
+package Topic5.GenericLinear;
 
-public class StackIntLinked {
-    private NodeInt top;
+public class StackLinked<T extends Comparable<T>> {
+    private Node<T> top;
     private int size;
 
-    public StackIntLinked () {
+    public StackLinked() {
         top = null;
         size = 0;
     }
 
-    public void push ( int value ) {
-        top =  new NodeInt (value, top);
+    public void push ( T value ) {
+        top = new Node<T> (top, value);
         size++;
     }
 
-    public int pop () throws Exception {
+    public T pop () throws Exception {
         if ( top != null ) {
-            int lastTop = top.getValue();
+            T lastTop = top.getValue();
             top = top.getNext();
             size--;
             return lastTop;
@@ -25,7 +25,7 @@ public class StackIntLinked {
         }
     }
 
-    public int top () throws Exception {
+    public T top () throws Exception {
         if ( top != null )
             return top.getValue();
         else

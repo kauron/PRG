@@ -1,6 +1,6 @@
-package Topic5;
+package Topic5.GenericLinear;
 
-public class StackIntArray {
+public class StackArray {
     // TODO: fix docs
     private int[] data;
     /**
@@ -8,11 +8,11 @@ public class StackIntArray {
      */
     private int top;
 
-    public StackIntArray() {
+    public StackArray() {
         this(100);
     }
 
-    public StackIntArray(int maxSize) {
+    public StackArray(int maxSize) {
         data = new int[maxSize];
         top = 0;
     }
@@ -21,11 +21,11 @@ public class StackIntArray {
      * Pops the last element of the stack, removing it.
      *
      * @return int the last element of the stack
-     * @throws StackUnderflowException
+     * @throws Exception
      */
-    public int pop() throws StackUnderflowException {
+    public int pop() throws Exception {
         if (top != 0) return data[--top];
-        throw new StackUnderflowException("There are no elements in the stack");
+        throw new Exception("There are no elements in the stack");
     }
 
     /**
@@ -48,11 +48,11 @@ public class StackIntArray {
      * Returns the element on top of the stack, without removing it.
      *
      * @return int An integer, the last pushed to the stack.
-     * @throws StackUnderflowException
+     * @throws Exception
      */
-    public int top() throws StackUnderflowException {
+    public int top() throws Exception {
         if (top != 0) return data[top - 1];
-        throw new StackUnderflowException("There are no elements in the stack");
+        throw new Exception("There are no elements in the stack");
     }
 
     /**
