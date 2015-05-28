@@ -1,32 +1,49 @@
 package Topic5;
 
-public class NodeInt {
-    private int value;
-    private NodeInt next, previous;
+public class Node<T> {
+    private T value;
+    private Node next, previous;
 
-    public NodeInt(int value) {this ( value , null );}
-    public NodeInt(int value, NodeInt next) {this (null, value, next);}
-    public NodeInt(NodeInt previous, int value) {this (previous, value, null);}
+    public Node(T value) {
+        this(value, null);
+    }
 
-    public NodeInt(NodeInt previous, int value, NodeInt next) {
+    public Node(T value, Node next) {
+        this(null, value, next);
+    }
+
+    public Node(Node previous, T value) {
+        this(previous, value, null);
+    }
+
+    public Node(Node previous, T value, Node next) {
         this.value = value;
         this.next = next;
         this.previous = previous;
     }
 
-    public NodeInt getNext() {return next;}
+    public Node getNext() {
+        return next;
+    }
 
-    public void setNext(NodeInt node) {next = node;}
+    public void setNext(Node node) {
+        next = node;
+    }
 
-    public NodeInt getPrevious() {
+    public Node getPrevious() {
         return previous;
     }
 
-    public void setPrevious(NodeInt node) {
+    public void setPrevious(Node node) {
         previous = node;}
 
-    public int getValue() {return value;}
-    public void setValue(int value) {this.value = value;}
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
 
     public void clearLinks() {
         this.next = null;
@@ -43,7 +60,7 @@ public class NodeInt {
         );
     }
 
-    public void linkBefore(NodeInt node) {
+    public void linkBefore(Node node) {
         node.clearLinks();
 
         node.setNext(this); //link the node with this
@@ -54,7 +71,7 @@ public class NodeInt {
         this.setPrevious(node); // link this with the node
     }
 
-    public void linkAfter(NodeInt node) {
+    public void linkAfter(Node node) {
         node.clearLinks();
 
         node.setPrevious(this); //link the node with this
