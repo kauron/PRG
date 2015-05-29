@@ -258,7 +258,7 @@ public class LinkedList {
     }
 
 	/**
-	 * Inserts a new Node passed as parameter in order
+	 * Inserts a new NodeInt passed as parameter in order
 	 * Cost \Theta (n)
 	 * @param node The node to be inserted. 
 	 * It doesn't matter if it is linked with others, they will be ignored
@@ -276,7 +276,7 @@ public class LinkedList {
 	 * This method is not affected by the position of the cursor
 	 * Cost \Theta (n)
 	 * @param value Integer to search for
-	 * @return The Node containing the first occurrence of the value inside the list
+	 * @return The NodeInt containing the first occurrence of the value inside the list
 	 */
     public NodeInt search(int value) {
         for (NodeInt temp = first; temp != null; temp = temp.getNext())
