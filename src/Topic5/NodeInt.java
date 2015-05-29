@@ -1,5 +1,9 @@
 package Topic5;
 
+/**
+ * Node that contains an int and links to the previous and the next in order to
+ * implement a double linked list.
+ */
 public class NodeInt {
     private int value;
     private NodeInt next, previous;
@@ -28,11 +32,21 @@ public class NodeInt {
     public int getValue() {return value;}
     public void setValue(int value) {this.value = value;}
 
+	/**
+	 * Breaks all links from this node to any other
+	 */
     public void clearLinks() {
         this.next = null;
         this.previous = null;
     }
 
+	/**
+	 * Description of the object with format:
+	 * previousValue - thisValue - nextValue
+	 * If previous or next are null, "null" is displayed instead
+	 * This method only exists for debugging purposes
+	 * @return String with the format specified
+	 */
     @Override
     public String toString() {
         return String.format(
@@ -43,6 +57,11 @@ public class NodeInt {
         );
     }
 
+	/**
+	 * Method to connect this NodeInt with another one
+	 * The parameter will be before this node
+	 * @param node The node to link before this
+	 */
     public void linkBefore(NodeInt node) {
         node.clearLinks();
 
@@ -54,6 +73,11 @@ public class NodeInt {
         this.setPrevious(node); // link this with the node
     }
 
+	/**
+	 * Method to connect this NodeInt with another one
+	 * The parameter will be after this node
+	 * @param node The node to link after this
+	 */
     public void linkAfter(NodeInt node) {
         node.clearLinks();
 
@@ -63,12 +87,5 @@ public class NodeInt {
             next.setPrevious(node); //link the next with the node
         }
         this.setNext(node); // link this with the node
-    }
-
-    public void breakPreviousLink() {
-        if (this.previous != null) {
-            previous.setPrevious(null);
-            this.previous = null;
-        }
     }
 }

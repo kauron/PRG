@@ -2,10 +2,18 @@ package Topic5;
 
 import java.util.Random;
 
+/**
+ * Testing class to check if there are errors with the insertion or merge sort
+ * implemented in the LinkedList class
+ * This class needs LinkedList and NodeInt to work correctly
+ */
 public class Test {
     private static LinkedList lil, sil;
     private static boolean errors;
 
+	/**
+	 * Testing main that initializes with random numbers the lists and checks for errors
+	 */
     public static void main(String[] args) throws Exception {
         int errorCount = 0;
         int totalElements = 0;
@@ -32,6 +40,14 @@ public class Test {
                 (end - begin) / 1e9, (end - begin) / (1e3 * REPETITIONS));
     }
 
+	/**
+	 * Iterates through both lists, analysing or printing them
+	 * If both parameters are false, the method will do nothing
+	 * If both parameters are true, the method will display list and error information
+	 * and check for errors
+	 * @param print If true, the method will print the list
+	 * @param check If true, the method will check for errors in sorting
+	 */
     public static void show(boolean print, boolean check) {
         lil.begin();
         sil.begin();
@@ -54,25 +70,48 @@ public class Test {
         if (print) System.out.println();
     }
 
+	/**
+	 * Insert an array of values at the end of both lists
+	 * @param values Array of integers to be inserted
+	 */
     public static void addEnd(int[] values) {
         for (int i : values) addEnd(i);
     }
 
+	/**
+	 * Insert a value at the end of both lists
+	 * @param value Number to be inserted
+	 */
     public static void addEnd(int value) {
         lil.addEnd(value);
         sil.insertInOrder(value);
     }
 
+	/**
+	 * Initializes both lists from an array of integer values
+	 * @param values Array of integers containing the values to be inserted
+	 */
     public static void init(int[] values) {
         init(0, 0);
         addEnd(values);
     }
 
+	/**
+	 * Initializes both lists with a random amount of random numbers
+	 * @param min Minimum amount of numbers
+	 * @param max Maximum amount of numbers - 1 (numbers in range [min, max[)
+	 * @param maxValue Maximum value for the numbers, in range [0, maxValue[
+	 */
     public static void init(int min, int max, int maxValue) {
         init(new Random().nextInt(max - min) + min, maxValue);
     }
 
-    public static void init(int size, int maxValue) {
+    /**
+	 * Initializes both lists with random numbers
+	 * @param size Number of elements to be generated and inserted
+	 * @param maxValue Maximum value for the numbers, in range [0, maxValue[
+	 */
+	public static void init(int size, int maxValue) {
         Random r = new Random();
 
         errors = false;
