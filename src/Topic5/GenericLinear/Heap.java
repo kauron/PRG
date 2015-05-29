@@ -1,4 +1,4 @@
-package Topic5;
+package Topic5.GenericLinear;
 
 import java.lang.reflect.Array;
 
